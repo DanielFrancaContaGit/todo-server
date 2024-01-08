@@ -16,7 +16,7 @@ class TodoViewSet(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        todoList = Todo.objects.all()
+        todoList = Todo.objects.all().order_by('id').values()
 
         dodoListSerializer = TodoSerializers(todoList, many=True)
 
