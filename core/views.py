@@ -45,10 +45,11 @@ class TodoViewSet(APIView):
             try:
                 todo = Todo.objects.get(id=id)
             except Todo.DoesNotExist:
-                todo = None        
+                todo = None     
 
             data = {
-                'content': request.data.get('content')
+                'content': request.data.get('content') if request.data.get('content') else todo.content,
+                'finished': request.data.get('finished') if request.data.get('finished') else todo.finished,
             }
 
             serializer = TodoSerializers(instance=todo, data=data, partial=True)
